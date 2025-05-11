@@ -1,0 +1,6 @@
+name = "apollo-deepseek-worker"
+main = "src/index.ts"
+compatibility_date = "2024-05-10"
+nodejs_compat = true
+
+[vars]
