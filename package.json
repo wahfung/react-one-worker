@@ -1,0 +1,21 @@
+{
+  "name": "graphql-deepseek-worker",
+  "version": "1.0.0",
+  "description": "GraphQL Yoga Server on Cloudflare Workers integrated with DeepSeek API",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {
+    "@graphql-tools/schema": "^9.0.0",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^3.9.1",
+    "openai": "^4.98.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240304.0",
+    "typescript": "^5.2.2",
+    "wrangler": "^3.16.0"
+  }
+}
