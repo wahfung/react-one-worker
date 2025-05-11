@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
     "publish": "wrangler publish"
   },
   "dependencies": {
