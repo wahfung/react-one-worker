@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 /.wrangler
-/wrangler
+/wrangler.toml
 .pnp.js
 
 # testing
