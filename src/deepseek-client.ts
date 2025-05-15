@@ -1,5 +1,3 @@
-import OpenAI from "openai";
-
 export interface DeepSeekResponse {
   id: string;
   content: string;
@@ -7,18 +5,16 @@ export interface DeepSeekResponse {
 }
 
 export class DeepSeekClient {
-  private client: OpenAI;
-  private baseURL: string = 'https://api.deepseek.com/v1';
+  private apiKey: string;
+  private baseUrl: string = 'https://api.deepseek.com/v1';
 
   constructor(apiKey: string) {
+    this.apiKey = apiKey
+
     if (!apiKey || apiKey === 'your-deepseek-api-key') {
       throw new Error('无效的DeepSeek API密钥');
     }
 
-    this.client = new OpenAI({
-      apiKey: apiKey,
-      baseURL: this.baseURL
-    });
   }
 
   async generateText(prompt: string): Promise<DeepSeekResponse> {
@@ -28,18 +24,31 @@ export class DeepSeekClient {
 
     try {
       console.log(`正在发送请求到DeepSeek API，提示词: "${prompt.substring(0, 30)}..."`);
+
+      const url = `${this.baseUrl}/chat/completions`;
       
-      // 使用OpenAI客户端创建聊天完成
-      const completion = await this.client.chat.completions.create({
-        model: "deepseek-chat", // 使用DeepSeek的模型名称
+      const requestBody = {
+        model: 'deepseek-chat',
         messages: [
-          { role: "user", content: prompt }
+          {
+            role: 'user',
+            content: prompt
+          }
         ],
         temperature: 0.7,
         max_tokens: 1000
+      };
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`
+        },
+        body: JSON.stringify(requestBody)
       });
-
-      console.log('DeepSeek API响应:', completion);
+      const responseText = await response.text();
+      const completion =  JSON.parse(responseText);
 
       // 确保有响应内容
       if (!completion.choices || completion.choices.length === 0) {
