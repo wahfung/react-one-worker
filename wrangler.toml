@@ -4,4 +4,3 @@ compatibility_date = "2024-05-10"
 nodejs_compat = true
 
 [vars]
-DEEPSEEK_API_KEY = "sk-c92410dd33d142e4af5d35391df19ed9"
